@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>QtHttpDemoClass</class>
+ <widget class="QMainWindow" name="QtHttpDemoClass">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>720</width><height>500</height></rect>
+  </property>
+  <property name="windowTitle">
+   <string>Qt HTTP GET / POST Demo</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="mainLayout" stretch="0,1,0,0,3">
+    <item>
+     <widget class="QLineEdit" name="urlEdit">
+      <property name="placeholderText"><string>请求 URL</string></property>
+      <property name="accessibleName"><string>请求 URL</string></property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPlainTextEdit" name="bodyEdit">
+      <property name="placeholderText"><string>POST JSON 请求体</string></property>
+      <property name="accessibleName"><string>POST JSON 请求体</string></property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="requestLayout">
+      <item>
+       <widget class="QPushButton" name="getButton">
+        <property name="text"><string>发送 GET</string></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="postButton">
+        <property name="text"><string>发送 POST</string></property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QLabel" name="statusLabel">
+      <property name="text"><string>等待发送</string></property>
+      <property name="wordWrap"><bool>true</bool></property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPlainTextEdit" name="responseEdit">
+      <property name="placeholderText"><string>响应正文</string></property>
+      <property name="accessibleName"><string>响应正文</string></property>
+      <property name="readOnly"><bool>true</bool></property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

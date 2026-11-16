@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{2640D1ED-85E1-4EC9-8CCF-65A3E682E1E6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{73B35B06-AC02-4A47-B282-053E09A88BBF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{1055F9C9-6407-49DF-B487-43CD6EB4F75C}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp"><Filter>Source Files</Filter></ClCompile>
+    <ClCompile Include="QtHttpDemo.cpp"><Filter>Source Files</Filter></ClCompile>
+    <QtMoc Include="QtHttpDemo.h"><Filter>Header Files</Filter></QtMoc>
+    <QtUic Include="QtHttpDemo.ui"><Filter>Form Files</Filter></QtUic>
+  </ItemGroup>
+</Project>

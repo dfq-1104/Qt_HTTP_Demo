@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{67DF8C16-187F-4F7F-98AE-38C013C25ADA}</ProjectGuid>
+    <Keyword>Qt4VSv1.0</Keyword>
+    <WindowsTargetPlatformVersion Condition="'$(WindowsTargetPlatformVersion)' == ''">10.0.17134.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseDebugLibraries Condition="'$(Configuration)' == 'Debug'">true</UseDebugLibraries>
+    <UseDebugLibraries Condition="'$(Configuration)' == 'Release'">false</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup>
+    <!-- VS 2017 can read a UCRT registry path that points to the wrong Program Files directory. -->
+    <UCRTContentRoot Condition="'$(UCRTContentRoot)' == '' and Exists('$(MSBuildProgramFiles32)\Windows Kits\10\Include\$(WindowsTargetPlatformVersion)\ucrt\corecrt.h')">$(MSBuildProgramFiles32)\Windows Kits\10\</UCRTContentRoot>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+
+  <PropertyGroup>
+    <QtMsBuild Condition="'$(QtMsBuild)' == '' and Exists('$(LOCALAPPDATA)\QtMsBuild\qt.targets')">$(LOCALAPPDATA)\QtMsBuild</QtMsBuild>
+    <QtMsBuild Condition="'$(QtMsBuild)' == ''">$(USERPROFILE)\AppData\Local\QtMsBuild</QtMsBuild>
+    <QTDIR Condition="'$(QTDIR)' == ''">C:\Qt\Qt5.14.2\5.14.2\msvc2017_64</QTDIR>
+    <QtLibrarySuffix Condition="'$(Configuration)' == 'Debug'">d</QtLibrarySuffix>
+    <OutDir>$(MSBuildProjectDirectory)\..\build\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(OutDir)obj\</IntDir>
+    <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerEnvironment>PATH=$(QTDIR)\bin;$(PATH)
+QT_QPA_PLATFORM_PLUGIN_PATH=$(QTDIR)\plugins\platforms</LocalDebuggerEnvironment>
+    <LocalDebuggerMergeEnvironment>true</LocalDebuggerMergeEnvironment>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <Import Project="$(QtMsBuild)\qt.props" Condition="Exists('$(QtMsBuild)\qt.props')" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props"
+            Condition="Exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <PreprocessorDefinitions>QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);$(QTDIR)\include;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Qt5Core$(QtLibrarySuffix).lib;Qt5Gui$(QtLibrarySuffix).lib;Qt5Network$(QtLibrarySuffix).lib;Qt5Widgets$(QtLibrarySuffix).lib;qtmain$(QtLibrarySuffix).lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <QtMoc>
+      <OutputFile>$(IntDir)moc_%(Filename).cpp</OutputFile>
+    </QtMoc>
+    <QtUic>
+      <OutputFile>$(IntDir)ui_%(Filename).h</OutputFile>
+    </QtUic>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)' == 'Release'">
+    <ClCompile>
+      <PreprocessorDefinitions>QT_NO_DEBUG;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="QtHttpDemo.cpp" />
+    <QtMoc Include="QtHttpDemo.h" />
+    <QtUic Include="QtHttpDemo.ui" />
+  </ItemGroup>
+  <Target Name="ValidateQtInstallation" BeforeTargets="PrepareForBuild">
+    <Error Condition="!Exists('$(QtMsBuild)\qt.props') or !Exists('$(QtMsBuild)\qt.targets')"
+           Text="Qt/MSBuild was not found. Set QtMsBuild to the Qt VS Tools build directory." />
+    <Error Condition="!Exists('$(QTDIR)\bin\uic.exe') or !Exists('$(QTDIR)\lib\Qt5Network$(QtLibrarySuffix).lib')"
+           Text="Set QTDIR to a Qt 5 installation for MSVC x64, such as C:\Qt\Qt5.14.2\5.14.2\msvc2017_64." />
+  </Target>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <Import Project="$(QtMsBuild)\qt.targets" Condition="Exists('$(QtMsBuild)\qt.targets')" />
+</Project>
